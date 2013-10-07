@@ -13,8 +13,6 @@
 \usepackage{nicefrac}
 \usepackage{mathtools}
 
-\DeclareMathOperator{\sinc}{sinc}
-
 \theoremstyle{plain}
 \newtheorem{prop}{Proposition}
 \newtheorem{lem}[prop]{Lemma}
@@ -54,47 +52,46 @@ The basic way to form a set is to merely list its elements, in the following way
 \[
     X = \{a,b,c,d\}.
 \]
-Here, $X$ is the set containing $a$, $b$, $c$ and $d$, and nothing else. This is not the only way to build
-sets, however. Thanks to Axiom~\ref{ax:spec}
+Here, $X$ is the set containing $a$, $b$, $c$ and $d$, and nothing else.
 
-The nature of the ``objects'' $x$ is left unaddressed. For our purposes, all the {\em mathematical} objects we
-consider (sets, functions, ordered pairs, etc.) can ultimately be defined in terms of sets (although we will
-generally not {\em think} of them as such). Thus it is enough to consider only the case where objects are also
-sets, and we will do so for the remainder of this paper. {\em Everything is a set!}
+The nature of the ``objects'' $x$ is left unaddressed. For our purposes, all the mathematical objects we
+consider (sets, functions, ordered pairs, etc.) are ultimately defined in terms of sets, although we will
+generally not {\em think} of them as such. {\em Everything is a set!}
 
-We write $x\in X$ to mean that $x$ belongs to the set $X$, and $x\not\in X$ if it does not. We also say that
+We write $x \in X$ to mean that $x$ belongs to the set $X$, and $x \not\in X$ if it does not. We also say that
 two sets $X$ and $Y$ are {\em disjoint} if they contain no common elements. A set $Y$ is a {\em subset} of $X$
-if, whenever $z\in Y$, we have $z\in X$ also. This is denoted by $Y \subseteq X$.
+if, whenever $z \in Y$, we have $z \in X$ also. This is denoted by $Y \subseteq X$.
 
-The axioms of ZF set theory describe what operations we are allowed to perform on sets without prior
+The axioms of ZF describe what operations we are allowed to perform on sets without further prior
 justification. We will now consider them one by one.
 
 \begin{ax}[Axiom of Existentionality] \label{ax:ex}
-Let $X$ and $Y$ be sets. Assume for all sets $z$ that $z\in X$ if and only if $z\in Y$. Then $X=Y$.
+Let $X$ and $Y$ be sets. Assume for all sets $z$ that $z \in X$ if and only if $z \in Y$. Then $X=Y$.
 \end{ax}
 
 This axiom tells us when two sets $X$ and $Y$ are equal, namely when they contain precisely the same elements.
-If so, then $X$ can be substituted for $Y$ anywhere.
+If so, then $X$ can be substituted for $Y$ in any formula.
 
 \begin{ax}[Axiom of Regularity] \label{ax:reg}
-Let $X$ be a non-empty set. Then there exists a $z\in X$ so that $z$ and $X$ are disjoint.
+Let $X$ be a non-empty set. Then there exists a $z \in X$ so that $z$ and $X$ are disjoint.
 \end{ax}
 
 The Axiom of Regularity implies that no set can be a member of itself. Indeed, let $X$ be a set and consider
 the set $\{X\}$. Since it is nonempty, it must have a member disjoint from itself, but $X$ is its only member.
-Thus, $X$ and $\{X\}$ have no common elements, and in particular $X\not\in X$.
+Thus, $X$ and $\{X\}$ have no common elements, and in particular $X \not\in X$.
 
 \begin{ax}[Axiom schema of Specification] \label{ax:spec}
 Let $X$ be a set, and $\phi$ any property that may or may not be satisfied by elements of $X$. Then there
 exists a set containing those elements of $X$ that satisfy $\phi$.
 \end{ax}
 
-The formal notation for this set is $\left\{ x \in X \;|\; \phi \right\}$, to be read as ``the set of all $x$
-in $X$ satisfying $\phi$''.
+The formal notation for this set is $\left\{ x \in X \;:\; \phi \right\}$, to be read as ``the set of all $x$
+in $X$ satisfying $\phi$''. Rigorous treatment of set theory requires the formula $\phi$ to adhere to the
+language defined by ZF, but we will allow ourselves more natural language in this text.
 
 If at least one set $X$ exists, we can use Axiom~\ref{ax:spec} to define the empty set $\emptyset$ as
 \[
-    \emptyset \defeq \left\{ x \in X \;|\; x \in x \right\}
+    \emptyset \defeq \left\{ x \in X \;:\; x \in x \right\}
 \]
 since by Axiom~\ref{ax:reg}, no set $x$ may be a member of itself. The empty set has the property that for all
 $x$, $x\not\in\emptyset$.
@@ -106,7 +103,7 @@ Let $x$ and $y$ be sets. Then there exists a set $Z$ such that $x\in Z$ and $y\i
 Note that $Z$ may be larger than $\{x,y\}$. However, once we have the set $Z$ from Axiom~\ref{ax:pair}, we can
 use Axiom~\ref{ax:spec} to give the existence of $\{x,y\}$ as
 \[
-    \{x,y\} \defeq \{ z \in Z \;|\; z=x \vee z=y \}.
+    \{x,y\} \defeq \{ z \in Z \;:\; z=x \vee z=y \}.
 \]
 
 \begin{ax}[Axiom of Union] \label{ax:union}
@@ -117,25 +114,25 @@ Let $X$ be a set. Then there is a set $Y$ that contains those sets which are mem
 \end{ax}
 
 Note that, again, the set $Y$ can be larger than {\em just} the members of members of $X$, but just like
-previously, we can use the axiom of specification to cut away the extra. We denote this set as the {\em
-union} of all members of $X$: 
+previously, we can use the axiom of specification to define {\em just} the union. We denote this set as the
+{\em union} of all members of $X$: 
 \[
-    Y \defeq \bigcup_{z\in X} z
+    Y \defeq \bigcup_{z \in X} z
 \]
 In particular we have the following special notation for unions of a finite number of sets. If
 $X=\{z_1,z_2,\ldots,z_n\}$, then 
 \[
-    \bigcup_{z\in X} z \eqdef z_1 \cup z_2 \cup \cdots \cup z_n.
+    \bigcup_{z \in X} z \eqdef z_1 \cup z_2 \cup \cdots \cup z_n.
 \]
 
 \begin{ax}[Axiom of Infinity] \label{ax:inf}
-Let the {\em successor} of a set $x$ be given as $S(x) \defeq x \cup \{x\}$. Then there exists a set $X$ such that
-$\emptyset\in X$ and, whenever $x\in X$ we have $S(x)\in X$.
+Let the {\em successor} of a set $x$ be given as $S(x) \defeq x \cup \{x\}$. Then there exists a set $X$
+such that $\emptyset \in X$ and, whenever $x \in X$ we have $S(x) \in X$.
 \end{ax}
 
 Axiom~\ref{ax:inf} postulates the existence of an infinitely large set. In fact, as we will set later, this is
-just the set of natural numbers. It can also be used as the set $X$ allowing us to define the empty set
-$\emptyset$ using Axiom~\ref{ax:spec}.
+just the set of natural numbers. Note also that this Axiom postulates the existence of the empty set
+$\emptyset$.
 
 \begin{ax}[Axiom of Power Set] \label{ax:pow}
 Let $X$ be a set. Then there is a set containing all the subsets of $X$.
@@ -151,15 +148,82 @@ These seven axioms will be largely sufficient for our purposes here. There are t
     range of $f$ is a subset of some set $B$.
     \item The axiom of choice (or any of its equivalent notions).
 \end{itemize}
+These will be introduced if and when they are needed.
+
 The reader will have noticed the pattern: the ZF axioms often guarantee the existence of sets that may be
 larger than necessary, while Axiom~\ref{ax:spec} is the tool that allows us to reduce sets to contain
 precisely what we need.
 
-Let us now define intersections and differences of sets:
+Let us now define intersections,
 \[
-    X \cap Y \defeq \{ z \in X \cup Y \;|\; z \in X \wedge z \in Y \}, \qquad
-    X - Y \defeq \{ z \in X \;|\; z \not\in Y \}.
+    \bigcap_{z \in X} z \defeq \left\{ x \in \bigcup_{z \in X} z \;:\; \forall z \in X, x \in z \right\},
 \]
+finite intersections, for $X = \{z_1, z_2, \ldots, z_n\}$,
+\[
+    \bigcap_{z \in X} z \eqdef z_1 \cap z_2 \cap \cdots \cap z_n,
+\]
+and set differences,
+\[
+    X - Y \defeq \{ x \in X \;:\; x \not\in Y \}.
+\]
+In the context of a {\em universe} $U$, we may also define the {\em complement} of a set $X$ as $X^c = U - X$.
+% }}}
+
+% {{{ Relations, functions, sequences
+\section{Ordered tuples, relations and functions}
+
+\begin{definition}
+Let $a,b$ be sets. We define the ordered pair $(a,b)$ as
+\[
+    (a,b) = \{ \{a\}, \{a,b\} \}.
+\]
+\end{definition}
+This definition provides a distinction between the pairs $(a,b)$ and $(b,a)$ if $a\neq b$. Since then
+$\{a\}\neq\{b\}$ ($a$ and $b$ are different) and $\{a\}\neq\{a,b\}$ (the two sets have different numbers of
+elements), we see that $\{\{a\},\{a,b\}\}\neq\{\{b\},\{b,a\}\}$, as $\{a\}$ is nowhere in the second set. This
+justifies the name {\em ordered} pair.
+
+We may also produce tuples of any size by nesting pairs, e.g.
+\begin{align*}
+    (a,b,c,d,e) 
+    & \defeq (a,(b,(c,(d,e)))) \\
+    & = \{\{a\},\{a,(b,(c,(d,e)))\}\} \\
+    & = \{\{a\},\{a,\{\{b\},\{b,(c,(d,e))\}\}\}\} \\
+    & = \{\{a\},\{a,\{\{b\},\{b,\{\{c\},\{c,(d,e)\}\}\}\}\}\} \\
+    & = \{\{a\},\{a,\{\{b\},\{b,\{\{c\},\{c,\{\{d\},\{d,e\}\}\}\}\}\}\}\},
+\end{align*}
+although we will provide a more suitable definition later.
+
+We now wish to define the notion of the Cartesian product $X\times Y$ of two sets $X$ and $Y$, namely the set
+of all ordered pairs $(x,y)$ where $x\in X$ and $y\in Y$. Note that $\{x\}$ and $\{x,y\}$ are both subsets of
+$X\cup Y$, thus $\{\{x\},\{x,y\}$ is a subset of $\cP(X \cup Y)$, or in other words, it is a member of
+$\cP(\cP(X \cup Y))$. We can then write
+\[
+    X \times Y = \{ z \in \cP(\cP(X\cup Y)) \;:\; z = (x,y) \text{ for some } x \in X, \; y \in Y \}.
+\]
+
+With this in hand, we can now define relations.
+\begin{definition}
+A set $R$ is called a {\em relation} on a set $X$ if it is a subset of $X \times X$.
+\end{definition}
+Loosely speaking, a relation on $X$ lists the pairs of elements of $X$ that are ``related''. We often use the
+notation $x R y$ to mean $(x,y) \in R$.
+
+We observe, for example, that equality is a relation:
+\[
+    \{ (x,y) \in X \times X \;:\; x = y \}.
+\]
+In fact, equality belongs to a particularly important class of relations known as equivalence relations.
+\begin{definition}
+We say that a relation $R$ is
+\begin{itemize}
+    \item {\em reflexive} if $xRx$ for all $x$ (every element is related to itself),
+    \item {\em symmetric} if $xRy$ whenever $yRx$,
+    \item {\em antisymmetric} if, whenever $x \neq y$, exactly one of $xRy$ and $yRx$ holds,
+    \item {\em transitive} if, whenever $xRy$ and $yRz$, we have $xRz$.
+\end{itemize}
+A relation $R$ that is reflexive, symmetric and transitive is called an {\em equivalence relation}.
+\end{definition}
 % }}}
 
 % {{{ Document end
