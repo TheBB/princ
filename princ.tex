@@ -1,0 +1,167 @@
+% {{{ Preamble
+\documentclass[a4paper, twoside, notitlepage, 11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsthm}
+\usepackage{amscd}
+\usepackage{bbm}
+\usepackage{bm}
+\usepackage{nicefrac}
+\usepackage{mathtools}
+
+\DeclareMathOperator{\sinc}{sinc}
+
+\theoremstyle{plain}
+\newtheorem{prop}{Proposition}
+\newtheorem{lem}[prop]{Lemma}
+\newtheorem{thm}[prop]{Theorem}
+\newtheorem{cor}[prop]{Corollary}
+\newtheorem{ass}[prop]{Assumption}
+\newtheorem{ax}[prop]{Axiom}
+\theoremstyle{definition}
+\newtheorem{definition}[prop]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[prop]{Remark}
+
+\numberwithin{equation}{section}
+
+\input{custom}
+
+\title{Mathematics from scratch}
+\author{E. Fonn}
+
+\begin{document}
+
+\maketitle
+% }}}
+
+The purpose of this document is to build some familiar mathematical structures from ``scratch'', by which we
+mean the axioms of Zermelo-Fraenkel set theory (hereafter known as ZF). It is not our intention to be fully
+rigorous, we target here mostly interested laypeople and amateur mathematicians.
+
+% {{{ ZF set theory
+\section{Zermelo-Fraenkel set theory}
+
+A {\em set} is to be understood as a collection of objects, in the sense that for any given set $X$ and an
+object $x$, we can decide whether or not $x$ belongs to $X$. In particular, sets do not count repetitions,
+merely membership ($x$ cannot belong to $X$ ``more than once'').
+
+The basic way to form a set is to merely list its elements, in the following way:
+\[
+    X = \{a,b,c,d\}.
+\]
+Here, $X$ is the set containing $a$, $b$, $c$ and $d$, and nothing else. This is not the only way to build
+sets, however. Thanks to Axiom~\ref{ax:spec}
+
+The nature of the ``objects'' $x$ is left unaddressed. For our purposes, all the {\em mathematical} objects we
+consider (sets, functions, ordered pairs, etc.) can ultimately be defined in terms of sets (although we will
+generally not {\em think} of them as such). Thus it is enough to consider only the case where objects are also
+sets, and we will do so for the remainder of this paper. {\em Everything is a set!}
+
+We write $x\in X$ to mean that $x$ belongs to the set $X$, and $x\not\in X$ if it does not. We also say that
+two sets $X$ and $Y$ are {\em disjoint} if they contain no common elements. A set $Y$ is a {\em subset} of $X$
+if, whenever $z\in Y$, we have $z\in X$ also. This is denoted by $Y \subseteq X$.
+
+The axioms of ZF set theory describe what operations we are allowed to perform on sets without prior
+justification. We will now consider them one by one.
+
+\begin{ax}[Axiom of Existentionality] \label{ax:ex}
+Let $X$ and $Y$ be sets. Assume for all sets $z$ that $z\in X$ if and only if $z\in Y$. Then $X=Y$.
+\end{ax}
+
+This axiom tells us when two sets $X$ and $Y$ are equal, namely when they contain precisely the same elements.
+If so, then $X$ can be substituted for $Y$ anywhere.
+
+\begin{ax}[Axiom of Regularity] \label{ax:reg}
+Let $X$ be a non-empty set. Then there exists a $z\in X$ so that $z$ and $X$ are disjoint.
+\end{ax}
+
+The Axiom of Regularity implies that no set can be a member of itself. Indeed, let $X$ be a set and consider
+the set $\{X\}$. Since it is nonempty, it must have a member disjoint from itself, but $X$ is its only member.
+Thus, $X$ and $\{X\}$ have no common elements, and in particular $X\not\in X$.
+
+\begin{ax}[Axiom schema of Specification] \label{ax:spec}
+Let $X$ be a set, and $\phi$ any property that may or may not be satisfied by elements of $X$. Then there
+exists a set containing those elements of $X$ that satisfy $\phi$.
+\end{ax}
+
+The formal notation for this set is $\left\{ x \in X \;|\; \phi \right\}$, to be read as ``the set of all $x$
+in $X$ satisfying $\phi$''.
+
+If at least one set $X$ exists, we can use Axiom~\ref{ax:spec} to define the empty set $\emptyset$ as
+\[
+    \emptyset \defeq \left\{ x \in X \;|\; x \in x \right\}
+\]
+since by Axiom~\ref{ax:reg}, no set $x$ may be a member of itself. The empty set has the property that for all
+$x$, $x\not\in\emptyset$.
+
+\begin{ax}[Axiom of Pairing] \label{ax:pair}
+Let $x$ and $y$ be sets. Then there exists a set $Z$ such that $x\in Z$ and $y\in Z$.
+\end{ax}
+
+Note that $Z$ may be larger than $\{x,y\}$. However, once we have the set $Z$ from Axiom~\ref{ax:pair}, we can
+use Axiom~\ref{ax:spec} to give the existence of $\{x,y\}$ as
+\[
+    \{x,y\} \defeq \{ z \in Z \;|\; z=x \vee z=y \}.
+\]
+
+\begin{ax}[Axiom of Union] \label{ax:union}
+Let $X$ be a set. Then there is a set $Y$ that contains those sets which are members of some member of $X$:
+\[
+    x \in z \wedge z \in X \implies z \in Y.
+\]
+\end{ax}
+
+Note that, again, the set $Y$ can be larger than {\em just} the members of members of $X$, but just like
+previously, we can use the axiom of specification to cut away the extra. We denote this set as the {\em
+union} of all members of $X$: 
+\[
+    Y \defeq \bigcup_{z\in X} z
+\]
+In particular we have the following special notation for unions of a finite number of sets. If
+$X=\{z_1,z_2,\ldots,z_n\}$, then 
+\[
+    \bigcup_{z\in X} z \eqdef z_1 \cup z_2 \cup \cdots \cup z_n.
+\]
+
+\begin{ax}[Axiom of Infinity] \label{ax:inf}
+Let the {\em successor} of a set $x$ be given as $S(x) \defeq x \cup \{x\}$. Then there exists a set $X$ such that
+$\emptyset\in X$ and, whenever $x\in X$ we have $S(x)\in X$.
+\end{ax}
+
+Axiom~\ref{ax:inf} postulates the existence of an infinitely large set. In fact, as we will set later, this is
+just the set of natural numbers. It can also be used as the set $X$ allowing us to define the empty set
+$\emptyset$ using Axiom~\ref{ax:spec}.
+
+\begin{ax}[Axiom of Power Set] \label{ax:pow}
+Let $X$ be a set. Then there is a set containing all the subsets of $X$.
+\end{ax}
+
+This set is called the {\em power set} of $X$, and is denoted by $\cP(X)$\footnote{Like before, Axiom
+\ref{ax:pow} does not by itself guarantee the existence of $\cP(X)$, only of a set that is at least as large.
+We use Axiom \ref{ax:spec} to ``cut it down''.}.
+
+These seven axioms will be largely sufficient for our purposes here. There are two omissions made:
+\begin{itemize}
+    \item The axiom schema of replacement, which tells us that if $f$ is a function on a domain $A$, then the
+    range of $f$ is a subset of some set $B$.
+    \item The axiom of choice (or any of its equivalent notions).
+\end{itemize}
+The reader will have noticed the pattern: the ZF axioms often guarantee the existence of sets that may be
+larger than necessary, while Axiom~\ref{ax:spec} is the tool that allows us to reduce sets to contain
+precisely what we need.
+
+Let us now define intersections and differences of sets:
+\[
+    X \cap Y \defeq \{ z \in X \cup Y \;|\; z \in X \wedge z \in Y \}, \qquad
+    X - Y \defeq \{ z \in X \;|\; z \not\in Y \}.
+\]
+% }}}
+
+% {{{ Document end
+\end{document}
+% }}}
